@@ -1,0 +1,26 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "title": "Смартфоны",
+        "description": "Телефоны под управлением Андроид систем."
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "title": "Телевизоры",
+        "description": "Телевизоры и другие отображающие устройства."
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "title": "Бытовая техника",
+        "description": "Холодильники, Стиральные машины, Микроволновки и т.д."
+    }
+}
+]
