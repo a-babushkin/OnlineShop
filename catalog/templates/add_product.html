@@ -1,0 +1,63 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Добавление товара{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header bg-info text-center">
+                <h2>Форма добавления товара</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Поле Название -->
+                    <div class="field shadow">
+                        <label class="fw-semibold" for="id_title">Название:</label><br>
+                        <input type="text" class="form-control" name="title" id="id_title" maxlength="250" required/>
+                    </div>
+
+                    <!-- Поле Описание -->
+                    <div class="field shadow">
+                        <label class="fw-semibold" for="id_description">Описание:</label><br>
+                        <textarea name="description" class="form-control" id="id_description"></textarea>
+                    </div>
+
+                    <!-- Поле Изображение -->
+                    <div class="field shadow">
+                        <label class="fw-semibold" for="id_image">Изображение:</label><br>
+                        <input type="file" class="form-control" name="image" id="id_image" accept="image/*" required/>
+                    </div>
+
+                    <!-- Поле Категория (предположительно список категорий) -->
+                    <div class="field shadow">
+                        <label class="fw-semibold" for="id_category">Категория:</label><br>
+                        <select name="category" class="form-select" id="id_category" required>
+                            <!-- Здесь будут варианты выбора категории -->
+                            <option value="">Выберите категорию...</option>
+                            {% for cat in categories %}
+                            <option value="{{cat.id}}">{{cat.title}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Поле Цена -->
+                    <div class="field shadow">
+                        <label class="fw-semibold" for="id_price">Цена:</label><br>
+                        <input type="number" class="form-control" step="any" min="0" name="price" id="id_price"
+                               required/>
+                    </div>
+
+                    <!-- Скрытые поля дат автоматически обновляются сервером -->
+                    <input type="hidden" name="created_at" value="{% now 'Y-m-d H:i:s' %}"/>
+                    <input type="hidden" name="updated_at" value="{% now 'Y-m-d H:i:s' %}"/>
+
+                    <!-- Кнопка отправки формы -->
+                    <button type="submit" class="btn btn-primary mt-3">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
