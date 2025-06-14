@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row text-center">
-    {% for product in products %}
+    {% for product in object_list %}
     <div class="col-4">
         <div class="card mb-4 shadow bg-body-tertiary rounded">
             <img src="{{ product.image.url }}" class="card-img-top" alt="...">
@@ -15,7 +15,7 @@
 <!--                    <p class="card-text"><i><b>Категория: </b></i>{{ product.category.title }}</p>-->
                     <p class="card-text bg-green"><i>{{ product.description|truncatechars:100 }}</i></p>
                 </div>
-                <a href="/catalog/product_details/{{ product.id }}" class="btn btn-primary mt-3">Подробно...</a>
+                <a href="{% url 'catalog:product_detail' product.id %}" class="btn btn-primary mt-3">Подробно...</a>
             </div>
         </div>
     </div>
