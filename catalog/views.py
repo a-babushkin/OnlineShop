@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.shortcuts import get_object_or_404
 from catalog.models import Product, Category
 
 
@@ -11,9 +11,9 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def product_details(request, product_id):
+def product_details(request, pk):
     """Контроллер страницы полной информации о товаре"""
-    product = Product.objects.get(id=product_id)
+    product = get_object_or_404(Product, pk=pk)
     context = {'product': product}
     return render(request, 'product_details.html', context)
 
