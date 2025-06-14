@@ -1,6 +1,7 @@
 from django.db import models
 
 class Category(models.Model):
+    """Описание модели Категорий"""
     title = models.CharField(max_length=250, verbose_name='наименование')
     description = models.TextField(verbose_name='описание')
 
@@ -13,6 +14,7 @@ class Category(models.Model):
         ordering = ['title']
 
 class Product(models.Model):
+    """Описание модели Товара"""
     title = models.CharField(max_length=250, verbose_name='наименование')
     description = models.TextField(verbose_name='описание')
     image = models.ImageField(verbose_name='изображение', upload_to='uploads/')
