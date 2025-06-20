@@ -23,10 +23,10 @@ class BlogRecordDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        # Чесно говорю, списал смутно догадывваюсь, что здесь происходит,
-        # но не знаю что такое атомарные операции вроде не проходили, но главное работает!
-        self.model.objects.filter(id=obj.id).update(views_number=F('views_number') + 1)
-        return obj
+        self.obj = super().get_object(queryset)
+        self.obj.views_number += 1
+        self.obj.save()
+        return self.obj
 
 
 class BlogRecordUpdateView(UpdateView):
