@@ -22,7 +22,6 @@ class BlogRecordDetailView(DetailView):
     model = BlogRecord
 
     def get_object(self, queryset=None):
-        obj = super().get_object(queryset)
         self.obj = super().get_object(queryset)
         self.obj.views_number += 1
         self.obj.save()
