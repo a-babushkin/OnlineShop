@@ -1,7 +1,8 @@
 from django.db.models import F
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
 from .models import BlogRecord
 
 
@@ -14,8 +15,15 @@ class BlogRecordListView(ListView):
 
 class BlogRecordCreateView(CreateView):
     model = BlogRecord
-    fields = ['title', 'content', 'image', 'is_published', 'views_number', 'published_date']
-    success_url = reverse_lazy('blog:blog_record_list')
+    fields = [
+        "title",
+        "content",
+        "image",
+        "is_published",
+        "views_number",
+        "published_date",
+    ]
+    success_url = reverse_lazy("blog:blog_record_list")
 
 
 class BlogRecordDetailView(DetailView):
@@ -30,14 +38,22 @@ class BlogRecordDetailView(DetailView):
 
 class BlogRecordUpdateView(UpdateView):
     model = BlogRecord
-    fields = ['title', 'content', 'image', 'is_published', 'views_number', 'published_date']
+    fields = [
+        "title",
+        "content",
+        "image",
+        "is_published",
+        "views_number",
+        "published_date",
+    ]
     # template_name = 'blog_record_form.html'
     # success_url = reverse_lazy('blog:blog_record_detail')
 
     def get_success_url(self):
-        return reverse_lazy('blog:blog_record_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy("blog:blog_record_detail", kwargs={"pk": self.object.pk})
+
 
 class BlogRecordDeleteView(DeleteView):
     model = BlogRecord
     # template_name = 'blog_record_delete.html'
-    success_url = reverse_lazy('blog:blog_record_list')
+    success_url = reverse_lazy("blog:blog_record_list")
