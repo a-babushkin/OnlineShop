@@ -1,10 +1,41 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from catalog.models import Product, Category
+from catalog.forms import CategoryForm, ProductForm
+from catalog.models import Category, Product
+
+"""Блок CRUD для Category"""
+
+
+class CategoryListView(ListView):
+    model = Category
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy("catalog:category_list")
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy("catalog:category_list")
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    success_url = reverse_lazy("catalog:category_list")
+
+
+"""Блок CRUD для Product"""
 
 
 class ProductListView(ListView):
@@ -17,30 +48,32 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ['title', 'description', 'image', 'price', 'category']
-    success_url = reverse_lazy('catalog:product_list')
+    form_class = ProductForm
+    success_url = reverse_lazy("catalog:product_list")
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ['title', 'description', 'image', 'price', 'category']
-    success_url = reverse_lazy('catalog:product_list')
+    form_class = ProductForm
+    success_url = reverse_lazy("catalog:product_list")
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy('catalog:product_list')
+    success_url = reverse_lazy("catalog:product_list")
 
 
 class ContactView(TemplateView):
-    template_name = 'contacts.html'
+    template_name = "contacts.html"
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        message = request.POST.get("message")
 
-        response_message = f"Пользователь: {name}, с телефоном: {phone}. Сообщение: {message}"
+        response_message = (
+            f"Пользователь: {name}, с телефоном: {phone}. Сообщение: {message}"
+        )
         return HttpResponse(response_message)
 
     def get_context_data(self, **kwargs):
@@ -51,9 +84,11 @@ class ContactView(TemplateView):
 
 def contacts(request):
     """Контроллер страницы Контакты"""
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
-        return HttpResponse(f"Пользователь: {name} с телефоном: {phone} Прислал следующее сообщение: {message}")
-    return render(request, 'contacts.html')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        message = request.POST.get("message")
+        return HttpResponse(
+            f"Пользователь: {name} с телефоном: {phone} Прислал следующее сообщение: {message}"
+        )
+    return render(request, "contacts.html")
