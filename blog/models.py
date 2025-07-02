@@ -9,7 +9,7 @@ class BlogRecord(models.Model):
     title = models.CharField(max_length=250, verbose_name="наименование")
     content = models.TextField(verbose_name="содержимое")
     image = models.ImageField(verbose_name="изображение", upload_to="uploads/blog_img")
-    is_published = models.BooleanField(verbose_name="признак публикации", default=False)
+    is_published = models.BooleanField(verbose_name="Опубликовано", default=False)
     views_number = models.IntegerField(verbose_name="количество просмотров", default=0)
     created_at = models.DateTimeField(verbose_name="дата создания", auto_now_add=True)
     published_date = models.DateTimeField(verbose_name="дата публикации")

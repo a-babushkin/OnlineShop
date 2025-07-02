@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from .forms import BlogRecordForm
 from .models import BlogRecord
 
 
@@ -15,14 +16,7 @@ class BlogRecordListView(ListView):
 
 class BlogRecordCreateView(CreateView):
     model = BlogRecord
-    fields = [
-        "title",
-        "content",
-        "image",
-        "is_published",
-        "views_number",
-        "published_date",
-    ]
+    form_class = BlogRecordForm
     success_url = reverse_lazy("blog:blog_record_list")
 
 
@@ -38,14 +32,7 @@ class BlogRecordDetailView(DetailView):
 
 class BlogRecordUpdateView(UpdateView):
     model = BlogRecord
-    fields = [
-        "title",
-        "content",
-        "image",
-        "is_published",
-        "views_number",
-        "published_date",
-    ]
+    form_class = BlogRecordForm
     # template_name = 'blog_record_form.html'
     # success_url = reverse_lazy('blog:blog_record_detail')
 
