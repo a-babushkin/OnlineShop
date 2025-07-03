@@ -1,16 +1,16 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
-from catalog.views import ProductListView, ContactView
+from catalog.views import ContactView, ProductListView
 
 urlpatterns = [
-    path('', ProductListView.as_view()),
-    path('admin/', admin.site.urls),
-    path('catalog/contacts/', ContactView.as_view(), name='contacts'),
-    path('catalog/', include('catalog.urls', namespace='catalog')),
-    path('blog/', include('blog.urls', namespace='blog'))
+    path("", ProductListView.as_view()),
+    path("admin/", admin.site.urls),
+    path("catalog/contacts/", ContactView.as_view(), name="contacts"),
+    path("catalog/", include("catalog.urls", namespace="catalog")),
+    path("blog/", include("blog.urls", namespace="blog")),
 ]
 
 if settings.DEBUG:
