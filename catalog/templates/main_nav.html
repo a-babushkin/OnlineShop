@@ -2,14 +2,34 @@
     <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:category_list' %}">Список категорий</a>
+        {% if user.is_authenticated %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:category_create' %}">Добавить категорию</a>
+        {% endif %}
         <span>&nbsp;</span>
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_list' %}">Каталог товаров</a>
+        {% if user.is_authenticated %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Добавить товар</a>
+        {% endif %}
         <span>&nbsp;</span>
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_record_list' %}">Блог</a>
+        {% if user.is_authenticated %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_record_create' %}">Добавить Статью</a>
+        {% endif %}
         <span>&nbsp;</span>
         <a class="p-2 btn btn-outline-primary" href="/catalog/contacts/">Контакты</a>
-            </nav>
+        <span>&nbsp;</span>
+        {% if user.is_authenticated %}
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:profile' user.id %}">Profile</a>
+        <div class="p-2 btn btn-outline-danger">
+            <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link nav-link">Выйти
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
 </div>
