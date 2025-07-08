@@ -6,11 +6,12 @@ from django.urls import include, path
 from catalog.views import ContactView, ProductListView
 
 urlpatterns = [
-    path("", ProductListView.as_view()),
+    path("", ProductListView.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("catalog/contacts/", ContactView.as_view(), name="contacts"),
     path("catalog/", include("catalog.urls", namespace="catalog")),
     path("blog/", include("blog.urls", namespace="blog")),
+    path("users/", include("users.urls", namespace="users")),
 ]
 
 if settings.DEBUG:
