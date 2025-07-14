@@ -58,7 +58,7 @@ class CategoryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ["title", "description", "image", "category", "price"]
+        fields = ["title", "description", "image", "category", "price", "is_published"]
 
     # Стилизация полей формы
     def __init__(self, *args, **kwargs):
@@ -79,6 +79,8 @@ class ProductForm(forms.ModelForm):
         self.fields["price"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Введите цену товара"}
         )
+
+        self.fields["is_published"].widget.attrs.update({"class": "form-check-input"})
 
     # Валидатор для проверки названия на запрещенные слова
     def clean_title(self):
