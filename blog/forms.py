@@ -27,7 +27,7 @@ def check_for_forbidden_words(value):
 class BlogRecordForm(forms.ModelForm):
     class Meta:
         model = BlogRecord
-        exclude = ["views_number", 'created_at']
+        exclude = ["views_number", "created_at"]
 
     # Стилизация полей формы
     def __init__(self, *args, **kwargs):
@@ -46,7 +46,11 @@ class BlogRecordForm(forms.ModelForm):
         self.fields["is_published"].widget.attrs.update({"class": "form-check-input"})
 
         self.fields["published_date"].widget.attrs.update(
-            {"class": "form-control", 'type': 'date', "placeholder": "Введите дату публикации"}
+            {
+                "class": "form-control",
+                "type": "date",
+                "placeholder": "Введите дату публикации",
+            }
         )
 
     # Валидатор для проверки названия на запрещенные слова
