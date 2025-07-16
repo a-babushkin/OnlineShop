@@ -15,11 +15,16 @@
                     <p class="card-text bg-green"><i>{{ category.description|truncatechars:100 }}</i></p>
                 </div>
                 <div class="btn-group">
-                    <a href="{% url 'catalog:category_detail' category.id %}" class="btn btn-primary mt-3">Просмотреть</a>
+                    <a href="{% url 'catalog:category_detail' category.id %}"
+                       class="btn btn-primary mt-3">Просмотреть</a>
                     <a href="{% url 'catalog:category_edit' category.id %}"
                        class="btn btn-success mt-3">Изменить</a>
                     <a href="{% url 'catalog:category_delete' category.id %}"
                        class="btn btn-danger mt-3">Удалить</a>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'catalog:category_products' category.id %}"
+                       class="btn btn-warning mt-3">Продукты в категории</a>
                 </div>
             </div>
         </div>
