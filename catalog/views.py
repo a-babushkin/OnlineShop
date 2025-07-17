@@ -3,15 +3,19 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin,
 )
+from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from catalog.forms import CategoryForm, ProductForm
 from catalog.models import Category, Product
+from catalog.services import ProductService
 
 """Блок CRUD для Category"""
 
@@ -53,10 +57,12 @@ class ProductListView(ListView):
 
     # Метод переопределения исходного набора данных
     def get_queryset(self):
-        queryset = super().get_queryset()
-
-        if not self.get_is_moderator():
-            queryset = queryset.filter(is_published=True)
+        queryset = cache.get('products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            if not self.get_is_moderator():
+                queryset = queryset.filter(is_published=True)
+            cache.set('products_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
 
         return queryset
 
@@ -67,6 +73,7 @@ class ProductListView(ListView):
         return context
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
@@ -109,8 +116,8 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return (
-            obj.owner == self.request.user
-            or self.request.user.groups.filter(name="Модератор продуктов").exists()
+                obj.owner == self.request.user
+                or self.request.user.groups.filter(name="Модератор продуктов").exists()
         )
 
     # Метод действий на случай неудачной проверки прав доступа
@@ -119,11 +126,30 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return HttpResponseForbidden()
 
 
+class ProductByCategoryView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = "catalog/products_by_category.html"
+    success_url = reverse_lazy("catalog:category_list")
+
+    # Метод переопределения исходного набора данных
+    def get_queryset(self):
+        category_pk = self.kwargs['pk']
+        queryset = ProductService.product_in_category(category_pk)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_pk = self.kwargs['pk']
+        context['category'] = ProductService.category_title(category_pk)
+        return context
+
+
 class ContactView(LoginRequiredMixin, TemplateView):
     template_name = "contacts.html"
 
     # Метод обработки данных, отправленных через форму
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         message = request.POST.get("message")
