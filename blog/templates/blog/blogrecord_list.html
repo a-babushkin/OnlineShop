@@ -1,0 +1,26 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Список статей Блога{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    {% for blog_record in object_list %}
+    <div class="col-4">
+        <div class="card mb-4 shadow bg-body-tertiary rounded">
+            <img src="{{ blog_record.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h4 class="card-title">{{ blog_record.title }}</h4>
+                <div class="text-start">
+                    <p class="card-text bg-green"><i>{{ blog_record.content|truncatechars:100 }}</i></p>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'blog:blog_record_detail' blog_record.id %}" class="btn btn-primary mt-3">Просмотреть</a>
+                    <a href="{% url 'blog:blog_record_edit' blog_record.id %}" class="btn btn-success mt-3">Изменить</a>
+                    <a href="{% url 'blog:blog_record_delete' blog_record.id %}" class="btn btn-danger mt-3">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

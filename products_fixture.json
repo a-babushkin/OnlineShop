@@ -1,0 +1,67 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "title": "Redme 9C",
+        "description": "Смартфон под Андроидом, флагманская модель.",
+        "image": "img5.jpg",
+        "category": 1,
+        "price": 25000.0,
+        "created_at": "2025-06-10T16:42:06Z",
+        "updated_at": "2025-06-10T16:42:06Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "title": "Samsung Galaxy A05",
+        "description": "Смартфон Samsung Galaxy A05 (SM-A055F) — это современное и функциональное устройство, которое сочетает в себе стильный дизайн и мощные характеристики",
+        "image": "img6.jpg",
+        "category": 1,
+        "price": 27500.0,
+        "created_at": "2025-06-13T16:42:06Z",
+        "updated_at": "2025-06-14T16:42:06Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "title": "Samsung UE85CU7100UXCE",
+        "description": "Телевизор Samsung UE85CU7100UXCE представляет собой мощное и функциональное устройство, которое идеально подходит для больших помещений и создания домашнего кинотеатра.",
+        "image": "img12.jpg",
+        "category": 2,
+        "price": 127590.0,
+        "created_at": "2025-05-13T16:42:06Z",
+        "updated_at": "2025-05-14T16:42:06Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+        "title": "Hyundai 32 H-LED32BS5002",
+        "description": "Телевизор Hyundai 32” LED (модель: H-LED32BS5002) является устройством с высококачественным экраном с разрешением HD.",
+        "image": "img21.jpg",
+        "category": 2,
+        "price": 15190.0,
+        "created_at": "2025-05-23T16:42:06Z",
+        "updated_at": "2025-05-28T16:42:06Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+        "title": "Indesit ITS 4180 G",
+        "description": "Холодильник Indesit ITS 4180 G — двухкамерная модель, представленная в корпусе серебристого цвета. Управление механическое, удобное и простое.",
+        "image": "img28.jpg",
+        "category": 3,
+        "price": 31999.0,
+        "created_at": "2025-06-23T16:42:06Z",
+        "updated_at": "2025-06-28T16:42:06Z"
+    }
+}
+]
