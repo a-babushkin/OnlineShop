@@ -38,7 +38,7 @@ services:
     env_file:
       - ./.env
 
-  volumes:
-    postgres_data:
-    static_volume:
-    redis_volume:
+volumes:
+  postgres_data:
+  static_volume:
+  redis_volume:
