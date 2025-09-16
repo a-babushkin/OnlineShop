@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Полная информация о продукте{% endblock %}
+
+{% block content %}
+    <div class="p-5 ">
+        <h1>{{ object.title }}</h1>
+        <p class="lead"><i><b>Содержание: </b></i>{{ object.content }}</p>
+        <p class="lead"><i><b>Опубликовано: </b></i>{{ object.is_published }}</p>
+        <p class="lead"><i><b>Кол-во просмотров: </b></i>{{ object.views_number }}</p>
+        <p class="lead"><i><b>Дата создания: </b></i>{{ object.created_at|date:"d m Y" }}</p>
+        <p class="lead"><i><b>Дата публикации: </b></i>{{ object.published_date|date:"d m Y" }}</p>
+        <img class="img-thumbnail w-50" src="{{ object.image.url }}">
+    </div>
+{% endblock %}
